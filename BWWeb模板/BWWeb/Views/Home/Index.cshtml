@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "欢迎访问我的主页";
+}
+
+<div data-role="page">
+    <div data-role="header">
+        <h1>欢迎访问我的主页</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#pageone">登录</a></li>
+                <li><a href="#pagetwo">注册</a></li>
+            </ul>
+        </div>
+    </div>
+    <div role="main" class="ui-content">
+        <form method="post" action="#">
+            <label for="search" class="ui-hidden-accessible">查询：</label>
+            <input type="search" name="search" id="search" placeholder="用户名/ID" />
+        </form>
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+        </ul>
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+            <li><a href="#">列表项</a></li>
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#" data-icon="user">客户管理</a></li>
+                <li><a href="#" data-icon="shop">商家管理</a></li>
+                <li><a href="#" data-icon="bullets">分类管理</a></li>
+                <li><a href="#" data-icon="info">网站信息</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
