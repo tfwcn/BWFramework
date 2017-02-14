@@ -17,7 +17,7 @@ namespace BWFramework.DBHelper
         public override DbConnection GetConnection()
         {
             this.connectionString = "Server=localhost;Port=5432;User Id=postgres;"
-                + "Password=sa123; Database=TESTDB;"
+                + "Password=*; Database=TESTDB;"
                 + "CommandTimeout=0;ConnectionLifeTime=0;";
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             return conn;
