@@ -17,7 +17,7 @@ namespace BWFramework.DBHelper
         public override DbConnection GetConnection()
         {
             this.connectionString = "Data Source=.;Initial Catalog=DBTest;Persist Security Info=True;"
-                + "User ID=sa;Password=sa123;";
+                + "User ID=sa;Password=sa;";
             SqlConnection conn = new SqlConnection(connectionString);
             return conn;
         }
