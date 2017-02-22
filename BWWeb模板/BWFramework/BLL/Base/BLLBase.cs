@@ -12,6 +12,10 @@ namespace BWFramework.BLL.Base
         protected TLog bllTLog;
         protected string typeName = typeof(T).Name;
         protected BWFramework.DAL.Base.DALBase<T> dalObject;
+        /// <summary>
+        /// 是否记录更新日志
+        /// </summary>
+        protected bool isLog = false;
         public BLLBase()
         {
             if (!(this is TLog))//防止死循环
@@ -22,7 +26,7 @@ namespace BWFramework.BLL.Base
             {
                 if (assemblies.FullName.IndexOf("BWFramework.DAL,") == 0)
                 {
-                    dalObject = assemblies.CreateInstance("BWFramework.DAL."+typeName) as BWFramework.DAL.Base.DALBase<T>;
+                    dalObject = assemblies.CreateInstance("BWFramework.DAL." + typeName) as BWFramework.DAL.Base.DALBase<T>;
                     break;
                 }
             }
@@ -52,12 +56,14 @@ namespace BWFramework.BLL.Base
         public virtual void Update(T model)
         {
             dalObject.Update(model);
-            UpdateLog(model);
+            if (isLog)
+                UpdateLog(model);
         }
         public virtual void Update(List<T> list)
         {
             dalObject.Update(list);
-            list.ForEach(m => UpdateLog(m));
+            if (isLog)
+                list.ForEach(m => UpdateLog(m));
         }
 
         /// <summary>

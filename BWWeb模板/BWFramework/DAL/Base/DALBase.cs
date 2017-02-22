@@ -12,8 +12,22 @@ namespace BWFramework.DAL.Base
 {
     public abstract class DALBase<T> where T : new()
     {
-        protected BWFramework.DBHelper.Base.DBHelperBase dbHelper = BWFramework.DBHelper.Base.DBHelperBase.GetDBHelper();
+        protected BWFramework.DBHelper.Base.DBHelperBase dbHelper;
         protected string tableName = typeof(T).Name;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public DALBase()
+        {
+            dbHelper = BWFramework.DBHelper.Base.DBHelperBase.GetDBHelper(DBConnectionString.Default);
+        }
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public DALBase(string connectionString)
+        {
+            dbHelper = BWFramework.DBHelper.Base.DBHelperBase.GetDBHelper(connectionString);
+        }
         /// <summary>
         /// 获取数据
         /// </summary>

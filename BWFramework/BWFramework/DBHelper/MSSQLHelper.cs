@@ -14,10 +14,12 @@ namespace BWFramework.DBHelper
     /// </summary>
     public class MSSQLHelper : DBHelper.Base.DBHelperBase
     {
+        public MSSQLHelper(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
         public override DbConnection GetConnection()
         {
-            this.connectionString = "Data Source=.;Initial Catalog=DBTest;Persist Security Info=True;"
-                + "User ID=sa;Password=sa123;";
             SqlConnection conn = new SqlConnection(connectionString);
             return conn;
         }
@@ -33,11 +35,11 @@ namespace BWFramework.DBHelper
             SqlCommand com = new SqlCommand(cmdText, conn, transaction as SqlTransaction);
             return com;
         }
-        public override DbParameter NewDbParameter(string ParameterName, DbType DbType,object Value )
+        public override DbParameter NewDbParameter(string ParameterName, DbType DbType, object Value)
         {
             return NewDbParameter(ParameterName, DbType, Value, -1);
         }
-        public override DbParameter NewDbParameter(string ParameterName, DbType DbType, object Value,int Size)
+        public override DbParameter NewDbParameter(string ParameterName, DbType DbType, object Value, int Size)
         {
             return new SqlParameter() { ParameterName = ParameterName, DbType = DbType, Value = Value, Size = Size };
         }

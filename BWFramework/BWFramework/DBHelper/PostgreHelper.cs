@@ -14,11 +14,12 @@ namespace BWFramework.DBHelper
     /// </summary>
     public class PostgreHelper : DBHelper.Base.DBHelperBase
     {
+        public PostgreHelper(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
         public override DbConnection GetConnection()
         {
-            this.connectionString = "Server=localhost;Port=5432;User Id=postgres;"
-                + "Password=sa123; Database=TESTDB;"
-                + "CommandTimeout=0;ConnectionLifeTime=0;";
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             return conn;
         }

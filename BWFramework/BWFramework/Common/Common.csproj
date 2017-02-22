@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AttributeEx\DBColAttribute.cs" />
     <Compile Include="AttributeEx\SummaryAttribute.cs" />
+    <Compile Include="DBConnectionString.cs" />
     <Compile Include="DBEx.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Ex.cs" />

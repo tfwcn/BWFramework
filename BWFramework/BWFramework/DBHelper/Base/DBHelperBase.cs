@@ -9,25 +9,25 @@ using BWFramework.Common;
 
 namespace BWFramework.DBHelper.Base
 {
-    public abstract class DBHelperBase:DBTransactionHelper.DBTransactionBase
+    public abstract class DBHelperBase : DBTransactionHelper.DBTransactionBase
     {
         #region 靜態方法
-        private static DBHelperBase commonDBHelper;
+        private static Dictionary<string, DBHelperBase> commonDBHelper = new Dictionary<string, DBHelperBase>();
         /// <summary>
         /// 创建数据库连接类
         /// </summary>
-        public static void CreateDBHelper()
+        public static void CreateDBHelper(string connectionString)
         {
-            commonDBHelper = new MSSQLHelper();
+            commonDBHelper.Add(connectionString, new MSSQLHelper(connectionString));
         }
         /// <summary>
         /// 获得数据库连接类
         /// </summary>
-        public static DBHelperBase GetDBHelper()
+        public static DBHelperBase GetDBHelper(string connectionString)
         {
-            if (commonDBHelper == null)
-                CreateDBHelper();
-            return commonDBHelper;
+            if (commonDBHelper.ContainsKey(connectionString) == false)
+                CreateDBHelper(connectionString);
+            return commonDBHelper[connectionString];
         }
         #endregion
         protected string connectionString;
