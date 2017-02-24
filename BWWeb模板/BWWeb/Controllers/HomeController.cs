@@ -20,19 +20,19 @@ namespace BWWeb.Controllers
         public ActionResult Index()
         {
             //return View();
-            /*List<Thread> listThread = new List<Thread>();
+            List<Thread> listThread = new List<Thread>();
             using (BWFramework.BLL.DBTransaction tran = new BWFramework.BLL.DBTransaction())
             {
                 Mutex mutex = new Mutex();//进程互斥
-                for (int i = 0; i < 10000; i++)
+                for (int i = 0; i < 1000; i++)
                 {
                    Thread t= new Thread((tmpi) =>
                     {
                         List<BWFramework.Model.TNo> tmpListTNo = new List<BWFramework.Model.TNo>();
-                        for (int i2 = 0; i2 < 10; i2++)
+                        for (int i2 = 0; i2 < 100; i2++)
                         {
                             var strCID = Guid.NewGuid();
-                            tmpListTNo.Add(new BWFramework.Model.TNo() { CID = strCID.ToString(), CNo = BWFramework.Common.GUIDHelper.GetNumEnNo(tmpi.ToString().PadLeft(4, '0') + i2.ToString().PadLeft(2, '0'), 4) });
+                            tmpListTNo.Add(new BWFramework.Model.TNo() { CID = strCID.ToString(), CNo = BWFramework.Common.GUIDHelper.GetNumEnNo(tmpi.ToString().PadLeft(3, '0') + i2.ToString().PadLeft(2, '0'), 4) });
                         }
                         mutex.WaitOne();
                         bllTNo.Add(tmpListTNo);
@@ -46,7 +46,7 @@ namespace BWWeb.Controllers
                     t.Join();
                 }
                 tran.Commit();
-            }*/
+            }//*/
             int te = -1123213;
 
             return this.Content(te + " " + ((uint)te));

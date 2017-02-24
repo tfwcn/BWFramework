@@ -22,8 +22,7 @@ namespace BWWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            BWFramework.Common.DBConnectionString.Default = "Data Source=.;Initial Catalog=DBTest;Persist Security Info=True;"
-                    + "User ID=******;Password=******;";
+            BWFramework.Common.DBConnectionString.Default = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
     }
 }
