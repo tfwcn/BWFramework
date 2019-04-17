@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BWCore.Common\BWCore.Common.csproj" />
+    <ProjectReference Include="..\BWCore.DAL\BWCore.DAL.csproj" />
+    <ProjectReference Include="..\BWCore.DBTransactionHelper\BWCore.DBTransactionHelper.csproj" />
+    <ProjectReference Include="..\BWCore.Log\BWCore.Log.csproj" />
+    <ProjectReference Include="..\BWCore.Model\BWCore.Model.csproj" />
+  </ItemGroup>
+
+</Project>

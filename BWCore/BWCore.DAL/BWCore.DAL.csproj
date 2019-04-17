@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BWCore.DBHelper\BWCore.DBHelper.csproj" />
+    <ProjectReference Include="..\BWCore.Model\BWCore.Model.csproj" />
+  </ItemGroup>
+
+</Project>
