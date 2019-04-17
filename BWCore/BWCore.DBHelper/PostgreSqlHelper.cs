@@ -55,38 +55,5 @@ namespace BWCore.DBHelper
         {
             return new NpgsqlCommandBuilder(adapter as NpgsqlDataAdapter);
         }
-        public override DbType GetDbType(Type t)
-        {
-            DbType dbType;
-            switch (t.Name.ToLower())
-            {
-                case "int32":
-                    dbType = DbType.Int32;
-                    break;
-                case "string":
-                    dbType = DbType.String;
-                    break;
-                case "boolean":
-                    dbType = DbType.Boolean;
-                    break;
-                case "datetime":
-                    dbType = DbType.DateTime;
-                    break;
-                case "decimal":
-                    dbType = DbType.Decimal;
-                    break;
-                case "float":
-                    dbType = DbType.Decimal;
-                    break;
-                default:
-                    if (t.IsEnum)
-                    {
-                        dbType = DbType.Int32;
-                        break;
-                    }
-                    throw new Exception("DbType轉換,未定義類型：" + t.Name);
-            }
-            return dbType;
-        }
     }
 }
