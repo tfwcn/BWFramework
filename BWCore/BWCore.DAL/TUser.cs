@@ -10,14 +10,14 @@ namespace BWCore.DAL
 {
     public class TUser : BWCore.DAL.Base.DALBase<Model.TUser>
     {
-        public override Model.TUser GetModel(string CID)
-        {
-            string selectStr = "select top 1 a.*,b.CSex,b.CMoney from TUser as a left join TUserInfo as b on a.CID=b.CUserID";
-            string whereStr = "where a.CID=@CID";
-            List<DbParameter> paramenters = new List<DbParameter>();
-            paramenters.Add(dbHelper.NewDbParameter("@CID", DbType.String, CID, 36));
-            return base.GetModel(selectStr, whereStr, paramenters);
-        }
+        //public override Model.TUser GetModel(string CID)
+        //{
+        //    string selectStr = "select top 1 a.*,b.CSex,b.CMoney from TUser as a left join TUserInfo as b on a.CID=b.CUserID";
+        //    string whereStr = "where a.CID=@CID";
+        //    List<DbParameter> paramenters = new List<DbParameter>();
+        //    paramenters.Add(dbHelper.NewDbParameter("@CID", DbType.String, CID, 36));
+        //    return base.GetModel(selectStr, whereStr, paramenters);
+        //}
 
         public List<Model.TUser> GetModels()
         {

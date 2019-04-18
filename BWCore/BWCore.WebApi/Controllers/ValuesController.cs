@@ -21,11 +21,12 @@ namespace BWCore.WebApi.Controllers
         }
         // GET api/values
         [HttpGet]
-        public ActionResult<List<Model.TUser>> Get()
+        public ActionResult<Model.TUser> Get()
         {
-            bllTUser.Add(new Model.TUser() { FId = Guid.NewGuid().ToString(), FCreateTime = DateTime.Now, FName = "testUser" });
-            var list = bllTUser.GetModels();
-            return list;
+            //bllTUser.Add(new Model.TUser() { FId = Guid.NewGuid().ToString(), FCreateTime = DateTime.Now, FName = "testUser" });
+            //var list = bllTUser.GetModels();
+            var model = bllTUser.GetModel("3e05929d-c045-4108-b728-9c68090cc7cc");
+            return model;
         }
 
         // GET api/values/5

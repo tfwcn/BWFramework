@@ -20,10 +20,11 @@ namespace BWCore.DAL.Base
         /// <summary>
         /// 设置连接字符串
         /// </summary>
-        public void SetConnectionString(string connectionString)
+        public void SetConnectionString(string connectionString, DBHelper.Base.DBHelperBase.DBType dbType)
         {
             this.ConnectionString = connectionString;
-            dbHelper = BWCore.DBHelper.Base.DBHelperBase.GetDBHelper(connectionString);
+            dbHelper = BWCore.DBHelper.Base.DBHelperBase.GetDBHelper(connectionString, dbType);
+            //获取表名
             Common.AttributeEx.DBTableAttribute tableAttribute = Attribute.GetCustomAttribute(typeof(T), typeof(Common.AttributeEx.DBTableAttribute)) as Common.AttributeEx.DBTableAttribute;
             if (tableAttribute != null && !tableAttribute.Name.IsNullOrEmpty())
             {
@@ -34,11 +35,13 @@ namespace BWCore.DAL.Base
         /// <summary>
         /// 获取数据
         /// </summary>
-        public virtual T GetModel(string CID)
+        public virtual T GetModel(string id)
         {
+            //获取主键名
+            string pkName = typeof(T).GetPKName();
             List<DbParameter> paramenters = new List<DbParameter>();
-            paramenters.Add(dbHelper.NewDbParameter("@CID", DbType.String, CID, 36));
-            return GetModel("where CID=@CID", paramenters);
+            paramenters.Add(dbHelper.NewDbParameter(String.Format("@{0}", pkName), DbType.String, id, 36));
+            return GetModel(String.Format("where {0}=@{0}", pkName), paramenters);
         }
         /// <summary>
         /// 获取数据(抽象方法)
@@ -59,9 +62,14 @@ namespace BWCore.DAL.Base
         }
         protected virtual T GetModel(string selectStr, string whereStr, List<DbParameter> paramenters, int? timeOut)
         {
+            string sqlStr;
             if (selectStr == null)
-                selectStr = String.Format("select top 1 * from {0} ", tableName);
-            string sqlStr = String.Format("{0} {1} ", selectStr, whereStr);
+            {
+                selectStr = dbHelper.CreateSelectOneSql(tableName);
+                sqlStr = String.Format(selectStr, whereStr);
+            }
+            else
+                sqlStr = String.Format("{0} {1} ", selectStr, whereStr);
             if (paramenters == null)
                 paramenters = new List<DbParameter>();
             DataTable dt = dbHelper.GetDataTable(sqlStr, paramenters.ToArray(), timeOut);
@@ -95,7 +103,7 @@ namespace BWCore.DAL.Base
         protected virtual List<T> GetModels(string selectStr, string whereStr, List<DbParameter> paramenters, int? timeOut)
         {
             if (selectStr == null)
-                selectStr = String.Format("select * from {0} ", tableName);
+                selectStr = dbHelper.CreateSelectSql(tableName);
             string sqlStr = String.Format("{0} {1} ", selectStr, whereStr);
             if (paramenters == null)
                 paramenters = new List<DbParameter>();

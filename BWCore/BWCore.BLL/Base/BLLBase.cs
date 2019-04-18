@@ -13,7 +13,7 @@ namespace BWCore.BLL.Base
         protected TLog bllTLog;
         protected string typeName = typeof(T).Name;
         protected BWCore.DAL.Base.DALBase<T> dalObject;
-        public BLLBase(string connectionString)
+        public BLLBase(string connectionString, DBHelper.Base.DBHelperBase.DBType dbType = DBHelper.Base.DBHelperBase.DBType.PostgreSql)
         {
             if (!(this is TLog))//防止死循环
             {
@@ -24,7 +24,7 @@ namespace BWCore.BLL.Base
                 if (assemblies.FullName.IndexOf("BWCore.DAL,") == 0)
                 {
                     dalObject = assemblies.CreateInstance("BWCore.DAL." + typeName) as BWCore.DAL.Base.DALBase<T>;
-                    dalObject.SetConnectionString(connectionString);
+                    dalObject.SetConnectionString(connectionString, dbType);
                     break;
                 }
             }
@@ -32,16 +32,16 @@ namespace BWCore.BLL.Base
         /// <summary>
         /// 设置连接字符串
         /// </summary>
-        public void SetConnectionString(string connectionString)
+        public void SetConnectionString(string connectionString, DBHelper.Base.DBHelperBase.DBType dbType = DBHelper.Base.DBHelperBase.DBType.PostgreSql)
         {
-            dalObject.SetConnectionString(connectionString);
+            dalObject.SetConnectionString(connectionString, dbType);
         }
         /// <summary>
         /// 获取数据
         /// </summary>
-        public virtual T GetModel(string CID)
+        public virtual T GetModel(string id)
         {
-            return dalObject.GetModel(CID);
+            return dalObject.GetModel(id);
         }
         /// <summary>
         /// 新增数据

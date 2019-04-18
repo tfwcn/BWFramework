@@ -60,7 +60,7 @@ namespace BWCore.Common
             return dt;
         }
         /// <summary>
-        /// 獲取可讀寫公共屬性
+        /// 获取可读写公共属性
         /// </summary>
         public static PropertyInfo[] GetPropertiesPGS(this Type objType, bool? dbCanRead, bool? dbCanWrite)
         {
@@ -76,7 +76,7 @@ namespace BWCore.Common
             return properties.ToArray();
         }
         /// <summary>
-        /// 獲取屬性值
+        /// 获取属性值
         /// </summary>
         public static object GetPropertyValue(this object obj, string name)
         {
@@ -84,7 +84,7 @@ namespace BWCore.Common
             return objType.GetProperty(name).GetValue(obj);
         }
         /// <summary>
-        /// 獲取屬性标识
+        /// 获取属性标识
         /// </summary>
         public static T GetAttribute<T>(this object obj, string name) where T : class
         {
@@ -95,7 +95,39 @@ namespace BWCore.Common
             return Attribute.GetCustomAttribute(property, typeof(T)) as T;
         }
         /// <summary>
-        /// 獲取屬性名称
+        /// 获取主键字段名称
+        /// </summary>
+        public static string GetPKName(this object obj, string name)
+        {
+            Type objType = obj.GetType();
+            var property = objType.GetProperty(name);
+            if (property == null)
+                return null;
+            AttributeEx.SummaryAttribute attribute = obj.GetAttribute<AttributeEx.SummaryAttribute>(name);
+            if (attribute == null)
+                return null;
+            return attribute.Name;
+        }
+        /// <summary>
+        /// 获取主键字段名称
+        /// </summary>
+        public static string GetPKName(this Type objType)
+        {
+            foreach (var property in objType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.SetProperty))
+            {
+                AttributeEx.DBColAttribute attribute = Attribute.GetCustomAttribute(property, typeof(AttributeEx.DBColAttribute)) as AttributeEx.DBColAttribute;
+                if (attribute == null || attribute.PKey)
+                {
+                    if (!attribute.Name.IsNullOrEmpty())
+                        return attribute.Name;
+                    else
+                        return property.Name;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 获取属性名称
         /// </summary>
         public static string GetSummaryName(this object obj, string name)
         {
@@ -109,7 +141,7 @@ namespace BWCore.Common
             return attribute.Name;
         }
         /// <summary>
-        /// 獲取屬性描述
+        /// 获取属性描述
         /// </summary>
         public static string GetSummaryDescription(this object obj, string name)
         {

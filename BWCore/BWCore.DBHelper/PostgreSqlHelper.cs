@@ -55,5 +55,16 @@ namespace BWCore.DBHelper
         {
             return new NpgsqlCommandBuilder(adapter as NpgsqlDataAdapter);
         }
+        /// <summary>
+        /// 创建查询条记录sql
+        /// </summary>
+        /// <param name="tableName"></param>
+        public override string CreateSelectOneSql(string tableName)
+        {
+            string sql = String.Format("select * from {0} ", tableName);
+            sql += "{0} ";//预留where语句位置
+            sql += "limit 1";
+            return sql;
+        }
     }
 }

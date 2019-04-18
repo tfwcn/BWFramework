@@ -17,7 +17,7 @@ namespace BWCore.DBHelper.Base
         /// <summary>
         /// 创建数据库连接类
         /// </summary>
-        public static void CreateDBHelper(string connectionString, DBType dbType = DBType.PostgreSql)
+        public static void CreateDBHelper(string connectionString, DBType dbType)
         {
             if (dbType == DBType.MSSQL)
             {
@@ -31,10 +31,10 @@ namespace BWCore.DBHelper.Base
         /// <summary>
         /// 获得数据库连接类
         /// </summary>
-        public static DBHelperBase GetDBHelper(string connectionString)
+        public static DBHelperBase GetDBHelper(string connectionString, DBType dbType)
         {
             if (commonDBHelper.ContainsKey(connectionString) == false)
-                CreateDBHelper(connectionString);
+                CreateDBHelper(connectionString, dbType);
             return commonDBHelper[connectionString];
         }
         #endregion
@@ -442,6 +442,25 @@ namespace BWCore.DBHelper.Base
                         conn.Close();
                 }
             }
+        }
+        /// <summary>
+        /// 创建查询sql
+        /// </summary>
+        /// <param name="tableName"></param>
+        public virtual string CreateSelectSql(string tableName)
+        {
+            string sql = String.Format("select * from {0} ", tableName);
+            return sql;
+        }
+        /// <summary>
+        /// 创建查询条记录sql
+        /// </summary>
+        /// <param name="tableName"></param>
+        public virtual string CreateSelectOneSql(string tableName)
+        {
+            string sql = String.Format("select top 1 * from {0} ", tableName);
+            sql += "{0}";//预留where语句位置
+            return sql;
         }
         /// <summary>
         /// 创建插入sql
